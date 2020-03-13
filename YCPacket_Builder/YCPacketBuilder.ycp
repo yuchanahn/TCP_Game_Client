@@ -1,4 +1,0 @@
-unit test_t1
-{
-    byte[100] c;
-}

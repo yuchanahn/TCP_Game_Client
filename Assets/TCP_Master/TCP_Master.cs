@@ -16,6 +16,7 @@ public class TCP_Master : MonoBehaviour
         Inst = this;
 
         ioev.Map<test_t>(0);
+        ioev.Map<ping_t>(1);
 
         tcp = new YC_TCP_Master("127.0.0.1", 51234);
     }

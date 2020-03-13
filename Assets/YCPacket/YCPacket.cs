@@ -29,7 +29,6 @@ namespace YC
             {
                 YCPacket.pevent[YCPacket.pakcet_mapping_id[t.GetType()]] = (object o) => { ev((T)o); };
             }
-            
         }
     }
     public static class YCPacket
