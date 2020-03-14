@@ -69,16 +69,13 @@ class YC_TCP_Master
             Console.WriteLine("Socket exception: " + socketException);
         }
     }
+
+    Action act;
     public void run()
     {
-        if (!actions.IsEmpty)
+        while (!actions.IsEmpty)
         {
-            foreach (var i in actions)
-            {
-                Action act;
-                actions.TryDequeue(out act);
-                act();
-            }
+            if (actions.TryDequeue(out act)) act();
         }
     }
     public void send(YC.IPacket_t packet)

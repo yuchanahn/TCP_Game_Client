@@ -8,6 +8,7 @@ using YC;
 public class TCP_Master : MonoBehaviour
 {
     public static TCP_Master Inst;
+    
 
     YC_TCP_Master tcp;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using YC;
+using YCEM;
 
 public class YC_Chat : MonoBehaviour
 {
@@ -15,9 +16,7 @@ public class YC_Chat : MonoBehaviour
     {
         ioev.Signal((test_t t) =>
         {
-            buf += "\n" + new string((from c in t.chat_data
-                                      where c != '\0'
-                                      select c).ToArray());
+            buf += "\n" + t.chat_data.get_string();
             text_area.text = $"{buf}";
         });
     }
