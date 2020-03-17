@@ -1,9 +1,60 @@
 #unit test_t1
 {
-    byte[100] c;
+    char[100] c;
 }
 
 #unit ping_t
 {
     double ping;
+}
+
+#unit sign_in_t
+{
+	char[20] id_str;
+	char[20] pass_str;
+}
+
+#unit sign_up_t
+{
+	char[20] id_str;
+	char[20] pass_str;
+}
+
+#unit login_r_t
+{
+	int r;
+}
+
+#unit get_name_t
+{
+	int user_id;
+}
+
+#unit get_name_r_t
+{
+	int user_id;
+	char[50] name;
+}
+
+#unit set_name_t
+{
+	char[50] name;
+}
+
+#unit set_name_r_t
+{
+	bool IsSuccess;
+}
+
+#unit vec2_t
+{
+	float x;
+	float y;
+}
+
+#unit player_t
+{
+	int user_id;
+	int speed;
+	vec2_t pos;
 }

@@ -2,7 +2,7 @@ using YC;
 using System;
 using System.Collections.Generic;
 public struct ping_t : IPacket_t {
-double ping;
+public double ping;
 public int get_size() {
 return sizeof(double) + 0;}
 public byte[] get_byte(){
