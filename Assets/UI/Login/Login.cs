@@ -12,6 +12,7 @@ public class Login : MonoBehaviour
     [SerializeField] InputField id;
     [SerializeField] InputField pass;
     [SerializeField] Text state;
+    [SerializeField] string state_;
     [SerializeField] UnityEvent on_login_success;
     [SerializeField] UnityEvent on_signup_success;
     [SerializeField] bool IsSignin = false;
@@ -21,20 +22,25 @@ public class Login : MonoBehaviour
     {
         ioev.Signal((login_r_t t) =>
         {
-            state.text = t.r != -1 ? "로그인/회원가입 성공!" : "로그인/회원가입 실패!";
+            state_ = t.r != -1 ? "로그인/회원가입 성공!" : "로그인/회원가입 실패!";
             user_id = t.r;
             if (t.r != -1) 
             {
                 if (IsSignin)
                 {
-                    on_login_success.Invoke();
+                    TCP_Master.Inst.DoMain( () => { on_login_success.Invoke(); });
                 }
                 else
                 {
-                    on_signup_success.Invoke();
+                    TCP_Master.Inst.DoMain(() => { on_signup_success.Invoke(); });
                 }
             }
         });
+    }
+
+    private void Update()
+    {
+        state.text = state_;
     }
 
     public void Signin()

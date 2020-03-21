@@ -9,7 +9,7 @@ public class YC_Ping : MonoBehaviour
 {
     [SerializeField] Text ping_text;
     [SerializeField] float send_rate;
-    static int ms;
+    public static int ms;
     private void Start()
     {
         ioev.Signal((ping_t t) =>

@@ -57,4 +57,19 @@
 	int user_id;
 	int speed;
 	vec2_t pos;
+	vec2_t vel;	
+}
+
+#unit champ_ani_t
+{
+	int user_id;
+	int ani_id;
+	float ani_nomal_time;
+}
+
+#unit champ_hp_t
+{
+	int user_id;
+	float hp;
+	float max_hp;
 }

@@ -17,7 +17,7 @@ public class YC_Chat : MonoBehaviour
         ioev.Signal((test_t t) =>
         {
             buf += "\n" + t.chat_data.get_string();
-            text_area.text = $"{buf}";
+            TCP_Master.Inst.DoMain(()=>text_area.text = $"{buf}");
         });
     }
 
@@ -42,12 +42,13 @@ public class YC_Chat : MonoBehaviour
 
     void Update()
     {
-        
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            if (input_filed.IsActive()) 
+            if (input_filed.IsActive())
+            {
                 SendMessage();
-
+            }
+            
             input_filed.Select();
         }
     }

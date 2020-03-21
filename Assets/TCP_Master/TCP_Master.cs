@@ -8,7 +8,9 @@ using YC;
 public class TCP_Master : MonoBehaviour
 {
     public static TCP_Master Inst;
-    
+
+    [SerializeField] string ip; 
+    [SerializeField] int port; 
 
     YC_TCP_Master tcp;
 
@@ -27,8 +29,15 @@ public class TCP_Master : MonoBehaviour
         ioev.Map<get_name_r_t>      (8);
         ioev.Map<vec2_t>            (9);
         ioev.Map<player_t>         (10);
+        ioev.Map<champ_hp_t>       (11);
+        ioev.Map<champ_ani_t>      (12);
 
-        tcp = new YC_TCP_Master("127.0.0.1", 51234);
+        tcp = new YC_TCP_Master(ip, port);
+    }
+
+    public void DoMain(Action a)
+    {
+        tcp.DoMainThread(a);
     }
 
     private void Update()

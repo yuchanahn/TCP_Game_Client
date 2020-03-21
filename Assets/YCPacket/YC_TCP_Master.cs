@@ -69,8 +69,7 @@ class YC_TCP_Master
                     {
                         byte[] b_data = new byte[length];
                         Array.Copy(bytes, 0, b_data, 0, length);
-
-                        actions.Enqueue(()=>YC.YCPacket.read(b_data, b_data.Length));
+                        YC.YCPacket.read(b_data, b_data.Length);
                     }
                 }
             }
@@ -89,6 +88,12 @@ class YC_TCP_Master
             if (actions.TryDequeue(out act)) act();
         }
     }
+
+    public void DoMainThread(Action a)
+    {
+        actions.Enqueue(a);
+    }
+
     public void send(YC.IPacket_t packet)
     {
         if (socketConnection == null)

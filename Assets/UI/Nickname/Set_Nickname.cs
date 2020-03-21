@@ -14,12 +14,15 @@ public class Set_Nickname : MonoBehaviour
     {
         ioev.Signal((set_name_r_t t) =>
         {
-            if(t.IsSuccess)
+            if (t.IsSuccess)
             {
                 var g = new get_name_t();
                 g.user_id = Login.user_id;
                 TCP_Master.Inst.Send(g);
-                on_rename.Invoke();
+                TCP_Master.Inst.DoMain(() =>
+                {
+                    on_rename.Invoke();
+                });
             }
         });
     }
