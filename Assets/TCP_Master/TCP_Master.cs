@@ -14,6 +14,11 @@ public class TCP_Master : MonoBehaviour
 
     YC_TCP_Master tcp;
 
+    private void OnDestroy()
+    {
+        tcp.SocketDisconnet();
+    }
+
     private void Awake()
     {
         Inst = this;

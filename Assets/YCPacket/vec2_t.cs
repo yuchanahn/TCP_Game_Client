@@ -1,6 +1,10 @@
 using YC;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+[Serializable]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 public struct vec2_t : IPacket_t {
 public float x;
 public float y;

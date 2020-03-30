@@ -1,6 +1,10 @@
 using YC;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+[Serializable]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 public struct champ_hp_t : IPacket_t {
 public int user_id;
 public float hp;

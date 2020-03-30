@@ -1,6 +1,10 @@
 using YC;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+[Serializable]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 public struct set_name_r_t : IPacket_t {
 public bool IsSuccess;
 public int get_size() {

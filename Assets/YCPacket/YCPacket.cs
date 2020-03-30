@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace YC
@@ -40,7 +41,7 @@ namespace YC
         public static byte[] Get_YCPacket_Format(IPacket_t packet)
         {
             List<byte> bytes = new List<byte>();
-            var data = packet.get_byte();
+            var data = YC_PACKET.RawSerialize(packet, Marshal.SizeOf(packet.GetType()));
             int len = data.Length + sizeof(int) + sizeof(int);
             int mapping_id = pakcet_mapping_id[packet.GetType()];
 
@@ -76,9 +77,10 @@ namespace YC
                 {
                     var packet_row = new byte[Size - sizeof(int) - sizeof(int)];
                     Array.Copy(bytes, sizeof(int) + sizeof(int), packet_row, 0, packet_row.Length);
-                    var obj = GetTypeObj(ID);
-                    obj.set_byte(packet_row);
-                    pevent[ID](obj);
+                    //var obj = GetTypeObj(ID);
+                    //obj.set_byte(packet_row);
+
+                    pevent[ID](YC_PACKET.RawDeSerialize(packet_row, pakcet_mapping_type[ID]));
                     buf.RemoveRange(0, Size);
                     if (buf.Count > 8)
                     {

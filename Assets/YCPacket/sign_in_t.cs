@@ -1,6 +1,10 @@
 using YC;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+[Serializable]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 public struct sign_in_t : IPacket_t {
 char[] id_str__;
 public char[] id_str{get { if (id_str__ is null) id_str__ = new char[20]; return id_str__; } }

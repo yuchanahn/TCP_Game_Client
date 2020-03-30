@@ -6,14 +6,20 @@ public class Champ : MonoBehaviour
 {
     public int user_id = -1;
     public float hp = -1;
+    public float max_hp = -1;
     public Vector3 target_pos;
     public Vector3 server_pos;
+    public Vector3 dir;
     public float speed;
     private Rigidbody rigid;
     public int ani_id = -1;
     public float server_nomal_ani_t = -1;
     public bool bAttack_ani = false;
     string[] atk_anis;
+
+    public YCStat stat = null;
+    
+    [SerializeField] GameObject hp_bar_prefab;
 
 
     void Awake()
@@ -26,10 +32,10 @@ public class Champ : MonoBehaviour
 
     public bool Run(Vector3 targetPos)
     {
-        if(Vector3.Distance(targetPos, transform.position) <= 0.01f) return false;
+        if (targetPos == Vector3.zero) return false;
 
-        transform.localPosition = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
-        if ((transform.position - server_pos).sqrMagnitude <= 0.1f)
+        transform.localPosition = Vector3.MoveTowards(transform.position, transform.position + (targetPos * 10f), speed * Time.deltaTime);
+        if ((transform.position - server_pos + targetPos * YC_Ping.ms).sqrMagnitude <= 0.01f)
         {
             Debug.Log("TP!");
             transform.localPosition = server_pos;
@@ -37,33 +43,37 @@ public class Champ : MonoBehaviour
         return true;
     }
 
-    public void Turn(Vector3 targetPos)
+    public void Turn(Vector3 dir)
     {
-        Vector3 dir = targetPos - transform.position;
         if (dir == Vector3.zero) return;
-        Vector3 dirXZ = new Vector3(dir.x, 0f, dir.z);
-        Quaternion targetRot = Quaternion.LookRotation(dirXZ);
-        rigid.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 550.0f * Time.deltaTime);
+        rigid.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), 550.0f * Time.deltaTime);
     }
 
+    bool hpbar = false;
     void Update2()
     {
-        if (Run(target_pos))
+        if(!hpbar && stat != null)
         {
-            GetComponent<Animator>().SetFloat("Blend", Mathf.Clamp01(speed));
-            Turn(target_pos);
-        }
-        else
-        {
-            GetComponent<Animator>().SetFloat("Blend", 0);
+            yc.YCObjectPool.Instantiate(hp_bar_prefab, GM.UI).GetComponent<HPBar>().set_target(transform);
+            hpbar = true;
         }
 
-        if(bAttack_ani)
+        if (bAttack_ani)
         {
             var ani_info = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
             if (ani_info.nameHash != Animator.StringToHash("Base Layer.Attack"))
                 GetComponent<Animator>().Play("Attack", 0, server_nomal_ani_t + (server_nomal_ani_t * YC_Ping.ms));
             bAttack_ani = false;
+            return;
+        }
+        Turn(dir);
+        if (Run(target_pos))
+        {
+            GetComponent<Animator>().SetFloat("Blend", Mathf.Clamp01(speed));
+        }
+        else
+        {
+            GetComponent<Animator>().SetFloat("Blend", 0);
         }
     }
 

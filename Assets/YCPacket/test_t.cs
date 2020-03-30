@@ -1,6 +1,10 @@
 using YC;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+[Serializable]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 public struct test_t : IPacket_t
 {
     char[] chat_data__;

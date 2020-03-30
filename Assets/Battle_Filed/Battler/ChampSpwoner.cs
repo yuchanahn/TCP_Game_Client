@@ -16,6 +16,7 @@ public class ChampSpwoner : MonoBehaviour
         {
             Champs[t.user_id].server_pos = new Vector3(t.pos.x, 0, t.pos.y);
             Champs[t.user_id].target_pos = new Vector3(t.vel.x, 0, t.vel.y);
+            Champs[t.user_id].dir = new Vector3(t.dir.x, 0, t.dir.y);
             Champs[t.user_id].speed = t.speed;
         };
 
@@ -25,10 +26,15 @@ public class ChampSpwoner : MonoBehaviour
                 Champs[t.user_id].ani_id = t.ani_id;
                 Champs[t.user_id].bAttack_ani = true;
                 Champs[t.user_id].server_nomal_ani_t = t.ani_nomal_time;
+                Champs[t.user_id].target_pos = Vector3.zero;
             }
-        });
+        }); 
         ioev.Signal((champ_hp_t t)=> {
-            Debug.Log("Get hp data");
+            if (Champs.ContainsKey(t.user_id))
+            {
+                if (Champs[t.user_id].stat is null) Champs[t.user_id].stat = new YCStat();
+                Champs[t.user_id].stat.set(t.hp, t.max_hp);
+            }
         });
         ioev.Signal((player_t t) =>
         {

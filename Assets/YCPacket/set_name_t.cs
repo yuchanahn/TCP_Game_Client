@@ -1,6 +1,10 @@
 using YC;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+[Serializable]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
 public struct set_name_t : IPacket_t {
 char[] name__;
 public char[] name{get { if (name__ is null) name__ = new char[50]; return name__; } }

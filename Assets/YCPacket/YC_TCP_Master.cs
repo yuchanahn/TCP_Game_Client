@@ -25,20 +25,12 @@ class YC_TCP_Master
         ConnectToTcpServer();
     }
 
-    public void Dispose()
+    
+    public void SocketDisconnet()
     {
         socketConnection.Close();
         clientReceiveThread.Abort();
     }
-
-
-    /*
-    ~YC_TCP_Master()
-    {
-        socketConnection.Close();
-        clientReceiveThread.Abort();
-    }
-    */
 
 
     private void ConnectToTcpServer()
