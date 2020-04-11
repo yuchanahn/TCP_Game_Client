@@ -8,11 +8,13 @@ public class GM : MonoBehaviour
     public static Transform UI;
     [SerializeField] Camera Camera;
     public static Camera Cam;
-
+    [SerializeField] GameObject champSlot;
+    public static GameObject ChampSlot;
 
     private void Awake()
     {
         UI = UI_ObjectPool;
         Cam = Camera;
+        ChampSlot = champSlot;
     }
 }

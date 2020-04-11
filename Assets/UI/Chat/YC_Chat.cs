@@ -1,11 +1,17 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 using YC;
 using YCEM;
+using System.Runtime.InteropServices;
+
+[System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct test_t : IPacket_t
+{
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 200)]
+    public string chat_data;
+}
+
 
 public class YC_Chat : MonoBehaviour
 {
@@ -16,7 +22,7 @@ public class YC_Chat : MonoBehaviour
     {
         ioev.Signal((test_t t) =>
         {
-            buf += "\n" + t.chat_data.get_string();
+            buf += "\n" + t.chat_data;
             TCP_Master.Inst.DoMain(()=>text_area.text = $"{buf}");
         });
     }
@@ -28,14 +34,13 @@ public class YC_Chat : MonoBehaviour
 
         input_filed.text = "";
         test_t t = new test_t();
-        var b = input.ToCharArray();
 
-        if (b.Length >= 100)
+        if (input.Length >= 100)
         {
             Debug.Log("100자 이상의 문자는 전송할 수 없습니다.");
             return;
         }
-        Array.Copy(b, 0, t.chat_data, 0, b.Length);
+        t.chat_data = input;
 
         TCP_Master.Inst.Send(t);
     }

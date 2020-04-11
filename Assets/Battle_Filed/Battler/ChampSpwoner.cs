@@ -1,7 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using YC;
+
+[System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct champ_ani_t : IPacket_t
+{
+    public int user_id;
+    public int ani_id;
+    public float ani_nomal_time;
+};
+
+[System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct champ_hp_t : IPacket_t
+{
+    public int user_id;
+    public float hp;
+    public float max_hp;
+};
+
 
 public class ChampSpwoner : MonoBehaviour
 {

@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_ObjectPool: {fileID: 0}
+  Camera: {fileID: 0}

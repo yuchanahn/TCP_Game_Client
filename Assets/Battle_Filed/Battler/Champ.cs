@@ -5,8 +5,6 @@ using UnityEngine;
 public class Champ : MonoBehaviour
 {
     public int user_id = -1;
-    public float hp = -1;
-    public float max_hp = -1;
     public Vector3 target_pos;
     public Vector3 server_pos;
     public Vector3 dir;

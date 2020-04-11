@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 using YC;
+
+[System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct ping_t : IPacket_t
+{
+    public long ping;
+}
 
 public class YC_Ping : MonoBehaviour
 {

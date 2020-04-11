@@ -17,6 +17,8 @@ class YC_TCP_Master
     private TcpClient socketConnection;
     private Thread clientReceiveThread;
 
+    bool sock_connect = false;
+
     public YC_TCP_Master(string i, int p)
     {
         ip = i;
@@ -27,9 +29,12 @@ class YC_TCP_Master
 
     
     public void SocketDisconnet()
-    {
-        socketConnection.Close();
-        clientReceiveThread.Abort();
+    {   
+        if (sock_connect)
+        {
+            socketConnection.Close();
+            clientReceiveThread.Abort();
+        }
     }
 
 
@@ -56,6 +61,7 @@ class YC_TCP_Master
             {
                 using (NetworkStream stream = socketConnection.GetStream())
                 {
+                    sock_connect = true;
                     int length;
                     while ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {

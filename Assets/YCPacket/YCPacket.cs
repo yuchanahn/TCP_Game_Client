@@ -6,10 +6,7 @@ using UnityEngine;
 namespace YC
 {
     public interface IPacket_t
-    {
-        byte[] get_byte();
-        void set_byte(byte[] row);
-        int get_size();
+    { 
     }
     public static class ioev
     {
