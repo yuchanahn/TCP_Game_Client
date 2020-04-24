@@ -21,7 +21,7 @@ public struct champ_type_t : IPacket_t
 }
 
 [Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
-struct champ_list_t : IPacket_t
+public struct champ_list_t : IPacket_t
 {
     public int user_id;
     public int count;
@@ -30,7 +30,7 @@ struct champ_list_t : IPacket_t
 }
 
 [Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
-struct req_champ_list_t : IPacket_t
+public struct req_champ_list_t : IPacket_t
 {
     public int user_id;
 }
@@ -64,6 +64,7 @@ public class ChampDB : MonoBehaviour
 
     public static champ_data get(int champ_code)
     {
+        Debug.Log(champ_code);
         return Inst.db[champ_code];
     }
 

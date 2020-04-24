@@ -9,7 +9,7 @@ public class UniqueActiveTrueList : MonoBehaviour
 {
     private void Awake()
     {
-        UIEvent.on_unique_enable += u => UI.UIList.Where(x => x != u)
+        UIEvent.on_unique_enable += u => UI.UniqueUIs.Where(x => x != u)
                                                   .for_each(x => x.gameObject.SetActive(false));
     }
 }

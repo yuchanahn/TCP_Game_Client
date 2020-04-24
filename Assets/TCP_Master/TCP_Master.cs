@@ -41,6 +41,8 @@ public class TCP_Master : MonoBehaviour
         ioev.Map<req_champ_list_t> (15);
         ioev.Map<champ_gacha_t>    (16);
         ioev.Map<champ_gacha_r_t>  (17);
+        //ioev.Map<champ_pick_data_t>(18);
+        ioev.Map<cmd_game_start_t>(19);
 
         tcp = new YC_TCP_Master(ip, port);
     }

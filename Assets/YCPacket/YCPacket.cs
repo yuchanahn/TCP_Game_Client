@@ -14,7 +14,7 @@ namespace YC
         {
             T t = default(T);
             YCPacket.pakcet_mapping_id[t.GetType()] = id;
-            YCPacket.pakcet_mapping_type[id] = t.GetType();
+            YCPacket.packet_mapping_type[id] = t.GetType();
         }
 
         public static void Signal<T>(Action<T> ev)
@@ -33,7 +33,7 @@ namespace YC
     public static class YCPacket
     {
         public static Dictionary<Type, int> pakcet_mapping_id = new Dictionary<Type, int>();
-        public static Dictionary<int, Type> pakcet_mapping_type = new Dictionary<int, Type>();
+        public static Dictionary<int, Type> packet_mapping_type = new Dictionary<int, Type>();
         public static Dictionary<int, Action<object>> pevent = new Dictionary<int, Action<object>>();
         public static byte[] Get_YCPacket_Format(IPacket_t packet)
         {
@@ -50,7 +50,7 @@ namespace YC
         }
         public static IPacket_t GetTypeObj(int id)
         {
-            return Activator.CreateInstance(pakcet_mapping_type[id]) as IPacket_t;
+            return Activator.CreateInstance(packet_mapping_type[id]) as IPacket_t;
         }
         static List<byte> buf = new List<byte>();
         public static void read(byte[] bytes, int length)
@@ -76,8 +76,17 @@ namespace YC
                     Array.Copy(bytes, sizeof(int) + sizeof(int), packet_row, 0, packet_row.Length);
                     //var obj = GetTypeObj(ID);
                     //obj.set_byte(packet_row);
+                    try
+                    {
+                        pevent[ID](YC_PACKET.RawDeSerialize(packet_row, packet_mapping_type[ID]));
+                    }
+                    catch(Exception e)
+                    {
+                        Debug.Log(e);
+                        Debug.Log(packet_mapping_type[ID]);
+                    }
 
-                    pevent[ID](YC_PACKET.RawDeSerialize(packet_row, pakcet_mapping_type[ID]));
+                    //pevent[ID](YC_PACKET.RawDeSerialize(packet_row, pakcet_mapping_type[ID]));
                     buf.RemoveRange(0, Size);
                     if (buf.Count > 8)
                     {

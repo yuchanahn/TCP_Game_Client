@@ -52,7 +52,7 @@ public class Champ : MonoBehaviour
     {
         if(!hpbar && stat != null)
         {
-            yc.YCObjectPool.Instantiate(hp_bar_prefab, GM.UI).GetComponent<HPBar>().set_target(transform);
+            yc.YCObjectPool.Instantiate(hp_bar_prefab, G.UIObjPool).GetComponent<HPBar>().set_target(transform);
             hpbar = true;
         }
 

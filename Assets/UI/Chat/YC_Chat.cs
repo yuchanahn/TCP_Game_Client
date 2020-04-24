@@ -5,10 +5,10 @@ using YC;
 using YCEM;
 using System.Runtime.InteropServices;
 
-[System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+[System.Serializable][StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
 public struct test_t : IPacket_t
 {
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 200)]
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 100)]
     public string chat_data;
 }
 

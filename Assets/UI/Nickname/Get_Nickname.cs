@@ -7,11 +7,11 @@ using YC;
 using YCEM;
 
 
-[System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+[System.Serializable][StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
 public struct get_name_r_t
 {
     public int user_id;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 100)]
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 50)]
     public string name;
 }
 
@@ -24,6 +24,8 @@ public class Get_Nickname : MonoBehaviour
     {
         ioev.Signal((get_name_r_t t) =>
         {
+            Debug.Log(t.name);
+
             nickname_ = t.name;
         });
     }

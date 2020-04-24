@@ -22,7 +22,7 @@ public class HPBar : MonoBehaviour, yc.IPObject<HPBar>
     {
         if (target)
         {
-            transform.GetComponent<RectTransform>().position = GM.Cam.WorldToScreenPoint(target.position + Vector3.up * 2);
+            transform.GetComponent<RectTransform>().position = G.Cam.WorldToScreenPoint(target.position + Vector3.up * 2);
             hp_bar.maxValue = target.GetComponent<Champ>().stat.max_hp;
             hp_bar.value = target.GetComponent<Champ>().stat.hp;
         }

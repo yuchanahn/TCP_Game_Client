@@ -11,18 +11,18 @@ public struct login_r_t : IPacket_t
     public int r;
 }
 
-[System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+[System.Serializable][StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
 public struct sign_in_t : IPacket_t
 {
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 40)] public string id_str;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 40)] public string pass_str;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 20)] public string id_str;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 20)] public string pass_str;
 };
 
-[System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+[System.Serializable][StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
 public struct sign_up_t : IPacket_t
 {
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 40)] public string id_str;
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 40)] public string pass_str;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 20)] public string id_str;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 20)] public string pass_str;
 };
 
 

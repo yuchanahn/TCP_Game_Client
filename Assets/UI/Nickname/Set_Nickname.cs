@@ -8,7 +8,7 @@ using YCEM;
 [System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
 public struct set_name_r_t : IPacket_t
 {
-    public bool IsSuccess;
+    public int IsSuccess;
 };
 
 [System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -17,10 +17,10 @@ public struct get_name_t : IPacket_t
     public int user_id;
 };
 
-[System.Serializable][StructLayout(LayoutKind.Sequential, Pack = 1)]
+[System.Serializable][StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
 public struct set_name_t : IPacket_t
 {
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 100)]
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 50)]
     public string name;
 };
 
@@ -33,7 +33,7 @@ public class Set_Nickname : MonoBehaviour
     {
         ioev.Signal((set_name_r_t t) =>
         {
-            if (t.IsSuccess)
+            if (t.IsSuccess == 1)
             {
                 var g = new get_name_t();
                 g.user_id = Login.user_id;
